@@ -8,7 +8,7 @@ fn main() -> Result<(), CalculatorError> {
     let mut input = String::new();
     io::stdin().read_line(&mut input).expect("Failed to read line");
     
-    let parts: Vec<&str> = input.trim().split_whitespace().collect();
+    let parts: Vec<&str> = input.split_whitespace().collect();
     
     if parts.len() != 3 {
         println!("Please enter in the format: number operator number");
@@ -18,9 +18,9 @@ fn main() -> Result<(), CalculatorError> {
     let a: f64 = parts[0].parse().expect("Invalid number");
     let operator = parts[1];
     let b: f64 = parts[2].parse().expect("Invalid number");
-    
+
     match Calculator::calculate(a, b, operator) {
-        Ok(result) => println!("Result: {}", result),
+        Ok(result) => println!("Result: {result}"),
         Err(CalculatorError::DivisionByZero) => println!("Error: Division by zero"),
         Err(CalculatorError::InvalidOperator) => println!("Error: Invalid operator"),
     }
