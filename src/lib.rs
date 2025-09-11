@@ -68,9 +68,12 @@ mod tests {
         assert_eq!(Calculator::divide(6.0, 3.0), Ok(2.0));
         assert_eq!(Calculator::divide(5.0, 2.0), Ok(2.5));
         assert_eq!(Calculator::divide(-6.0, 3.0), Ok(-2.0));
-        
+
         // Test division by zero
-        assert_eq!(Calculator::divide(5.0, 0.0), Err(CalculatorError::DivisionByZero));
+        assert_eq!(
+            Calculator::divide(5.0, 0.0),
+            Err(CalculatorError::DivisionByZero)
+        );
     }
 
     #[test]
@@ -79,18 +82,33 @@ mod tests {
         assert_eq!(Calculator::calculate(5.0, 3.0, "-"), Ok(2.0));
         assert_eq!(Calculator::calculate(2.0, 3.0, "*"), Ok(6.0));
         assert_eq!(Calculator::calculate(6.0, 3.0, "/"), Ok(2.0));
-        
+
         // Test invalid operator
-        assert_eq!(Calculator::calculate(6.0, 3.0, "^"), Err(CalculatorError::InvalidOperator));
-        
+        assert_eq!(
+            Calculator::calculate(6.0, 3.0, "^"),
+            Err(CalculatorError::InvalidOperator)
+        );
+
         // Test division by zero through calculate
-        assert_eq!(Calculator::calculate(6.0, 0.0, "/"), Err(CalculatorError::DivisionByZero));
+        assert_eq!(
+            Calculator::calculate(6.0, 0.0, "/"),
+            Err(CalculatorError::DivisionByZero)
+        );
     }
 
     #[test]
     fn test_error_types() {
-        assert_eq!(CalculatorError::DivisionByZero, CalculatorError::DivisionByZero);
-        assert_eq!(CalculatorError::InvalidOperator, CalculatorError::InvalidOperator);
-        assert_ne!(CalculatorError::DivisionByZero, CalculatorError::InvalidOperator);
+        assert_eq!(
+            CalculatorError::DivisionByZero,
+            CalculatorError::DivisionByZero
+        );
+        assert_eq!(
+            CalculatorError::InvalidOperator,
+            CalculatorError::InvalidOperator
+        );
+        assert_ne!(
+            CalculatorError::DivisionByZero,
+            CalculatorError::InvalidOperator
+        );
     }
 }
