@@ -7,7 +7,20 @@ on:
     branches: [ master ]
 
 jobs:
+  fmt:
+    name: Check formatting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+          components: rustfmt
+      - name: Check formatting
+        run: cargo fmt --check
+
   test:
+    name: Run tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,6 +32,7 @@ jobs:
         run: cargo test --verbose
 
   clippy:
+    name: Run clippy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,6 +44,7 @@ jobs:
         run: cargo clippy -- -D warnings
 
   udeps:
+    name: Check unused dependencies
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -40,3 +55,14 @@ jobs:
         run: cargo install cargo-udeps
       - name: Check for unused dependencies
         run: cargo +nightly udeps --output json
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+      - name: Build
+        run: cargo build --verbose
